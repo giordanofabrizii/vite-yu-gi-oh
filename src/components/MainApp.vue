@@ -22,6 +22,9 @@ export default{
     },
     created(){
         this.getCards();
+        setTimeout(() => {
+            this.store.isLoaded = true;
+        }, 3000);
     }
 }
 </script>
