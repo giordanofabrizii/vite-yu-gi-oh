@@ -1,0 +1,48 @@
+<script>
+import { store } from '../store.js';
+import axios from 'axios';
+import SingleCard from './SingleCard.vue';
+
+export default{
+    data() {
+        return{
+            store,
+        }
+    },
+    methods:{
+        getCards: function(){
+            axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=${this.store.numberOfCards}20&offset=0`)
+                .then(response => {
+                    this.store.cards = response.data;
+                })  
+        }
+    },
+    components:{
+        SingleCard,
+    },
+    created(){
+        this.getCards();
+    }
+}
+</script>
+
+<template>
+    <main class="p-5">
+        <div class="card-container p-4">
+            <SingleCard/>
+        </div>
+    </main>
+</template>
+
+<style lang="scss" scoped>
+@use '../../node_modules/bootstrap/scss/bootstrap.scss' as *;
+@use '../styles/partials/variables' as *;
+
+    main{
+        background-color: $first-color;
+
+        .card-container {
+            background-color: white;
+        }
+    }
+</style>
