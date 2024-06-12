@@ -11,7 +11,7 @@ export default{
     },
     methods:{
         getCards: function(){
-            axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=${this.store.numberOfCards}20&offset=0`)
+            axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=${this.store.numberOfCards}&offset=0`)
                 .then(response => {
                     this.store.cards = response.data;
                 })  
@@ -29,7 +29,7 @@ export default{
 <template>
     <main class="p-5">
         <div class="card-container p-4">
-            <SingleCard/>
+            <SingleCard v-for="(card,index) in store.cards.data" :key="index" :index="index"/>
         </div>
     </main>
 </template>
@@ -43,6 +43,10 @@ export default{
 
         .card-container {
             background-color: white;
+
+            article{
+                width: calc(100% / 5);
+            }
         }
     }
 </style>
