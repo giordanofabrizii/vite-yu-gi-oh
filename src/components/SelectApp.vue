@@ -17,11 +17,11 @@ export default{
         },
         changed: function(value){
             this.store.archetypeSelected = value;
-            console.log(value)
         }
     },
     created(){
         this.getArchetypes();
+        this.store.archetypeSelected=this.store.archetypes[0];
     }
 }
 </script>
@@ -29,7 +29,8 @@ export default{
 <template>
     <section class="limited">
         <select class="form-select" aria-label="Default select example" @change="changed($event.target.value)">
-            <option v-for="archetype in store.archetypes" :key="archetype.archetype_name" :value="archetype.archetype_name">{{archetype.archetype_name}}</option>
+            <option selected value=""></option>
+            <option v-for="archetype in store.archetypes" :key="archetype.archetype_name" :value="archetype.archetype_name" @click="$emit('searched')">{{archetype.archetype_name}}</option>
         </select>       
     </section>
 </template>
