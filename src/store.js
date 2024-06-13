@@ -2,6 +2,8 @@ import { reactive } from 'vue'
 
 export const store = reactive({
     cards:[],
-    numberOfCards:40,
     isLoaded: false,
+    archetypeSelected: 'Alien',
+    numberOfCards: 0,
+    archetypes: [],
 })

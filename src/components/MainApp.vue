@@ -2,16 +2,18 @@
 import { store } from '../store.js';
 import axios from 'axios';
 import SingleCard from './SingleCard.vue';
+import SelectApp from './SelectApp.vue'
 
 export default{
     data() {
         return{
             store,
+            url :`https://db.ygoprodeck.com/api/v7/cardinfo.php?archetype=${store.archetypeSelected}`,
         }
     },
     methods:{
         getCards: function(){
-            axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=${this.store.numberOfCards}&offset=0`)
+            axios.get(this.url)
                 .then(response => {
                     this.store.cards = response.data;
                 })  
@@ -19,6 +21,7 @@ export default{
     },
     components:{
         SingleCard,
+        SelectApp,
     },
     created(){
         this.getCards();
@@ -31,6 +34,7 @@ export default{
 
 <template>
     <main class="p-5">
+        <SelectApp class="mb-3"/>
         <div class="card-container limited d-flex flex-wrap p-4">
             <span class="p-2 mx-3" v-if="store.isLoaded==true">
                 <h2 class="fs-5 my-0 py-2">Found {{ store.numberOfCards }} cards</h2>
